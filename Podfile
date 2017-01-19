@@ -7,5 +7,6 @@ target 'TumblrFeed' do
 
   # Pods for TumblrFeed
 	pod “AFNetworking”
+	pod “MBProgressHUD”
 
 end

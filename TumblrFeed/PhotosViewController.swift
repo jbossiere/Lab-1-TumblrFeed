@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import MBProgressHUD
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -28,10 +29,12 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             delegate: nil,
             delegateQueue: OperationQueue.main
         )
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         
         let task : URLSessionDataTask = session.dataTask(
             with: request as URLRequest,
             completionHandler: { (data, response, error) in
+                MBProgressHUD.hide(for: self.view, animated: true)
                 if let data = data {
                     if let responseDictionary = try! JSONSerialization.jsonObject(
                         with: data, options: []) as? NSDictionary {
