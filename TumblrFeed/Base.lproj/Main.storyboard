@@ -17,29 +17,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="222" sectionHeaderHeight="28" sectionFooterHeight="28" id="9uf-AO-Ow2">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="178" sectionHeaderHeight="28" sectionFooterHeight="28" id="9uf-AO-Ow2">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" rowHeight="222" id="ivf-Sz-oVA" customClass="PhotoCell" customModule="TumblrFeed" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="222"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoCell" id="Cba-0j-TtM" customClass="PhotoCell" customModule="TumblrFeed" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="178"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ivf-Sz-oVA" id="m3Q-Lp-pG1">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cba-0j-TtM" id="P3e-Kb-Oww">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="177"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="F7f-8m-Jw7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="ImB-zj-t9R">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="177"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="hellow" destination="F7f-8m-Jw7" id="rjj-GU-YNf"/>
-                                            <outlet property="imageView" destination="F7f-8m-Jw7" id="n4f-QR-AHT"/>
-                                            <outlet property="photoImageView" destination="F7f-8m-Jw7" id="yJf-rH-MUg"/>
-                                            <outlet property="photoView" destination="F7f-8m-Jw7" id="kuQ-e9-0xA"/>
+                                            <outlet property="photoImageView" destination="ImB-zj-t9R" id="ZOo-I0-xWs"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -48,7 +45,6 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
-                        <outlet property="PhotoCell" destination="ivf-Sz-oVA" id="Rro-0o-5nc"/>
                         <outlet property="TumblrTableView" destination="9uf-AO-Ow2" id="auV-a9-SH6"/>
                     </connections>
                 </viewController>

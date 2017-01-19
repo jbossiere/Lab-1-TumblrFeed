@@ -12,7 +12,6 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
 
     var posts: [NSDictionary] = []
     
-    @IBOutlet weak var PhotoCell: PhotoCell!
     @IBOutlet weak var TumblrTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +52,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = TumblrTableView.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
-        
+//        let cell = UITableViewCell()
         
         return cell
         
