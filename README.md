@@ -2,7 +2,7 @@
 
 **TumblrFeed** is a Tumblr Client using the [Tumblr API](https://www.tumblr.com/docs/en/api/v2).
 
-Time spent: **2** hours spent in total
+Time spent: **4** hours spent in total
 
 ## User Stories
 
@@ -12,7 +12,7 @@ The following **required** functionality is complete:
 
 The following **optional** features are implemented:
 
-- [X] Included progress spinner to show network request taking place
+- [X] User sees progress spinner to know that network request taking place
 
 ## Video Walkthrough 
 
