@@ -8,12 +8,17 @@
 
 import UIKit
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var posts: [NSDictionary] = []
     
+    @IBOutlet weak var PhotoCell: PhotoCell!
+    @IBOutlet weak var TumblrTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        TumblrTableView.delegate = self
+        TumblrTableView.dataSource = self
         
         let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
         let request = URLRequest(url: url!)
@@ -40,6 +45,17 @@ class PhotosViewController: UIViewController {
         task.resume()
 
         // Do any additional setup after loading the view.
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return posts.count
+    }
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = TumblrTableView.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
+        
+        
+        return cell
+        
     }
 
     override func didReceiveMemoryWarning() {
