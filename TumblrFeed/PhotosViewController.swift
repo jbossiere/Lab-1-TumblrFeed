@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -39,6 +40,8 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                         let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
                         
                         self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
+                        self.TumblrTableView.reloadData()
+
                     }
                 }
         });
@@ -52,7 +55,13 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = TumblrTableView.dequeueReusableCell(withIdentifier: "PhotoCell") as! PhotoCell
-//        let cell = UITableViewCell()
+        let post = posts[indexPath.row]
+        if let photos = post.value(forKeyPath: "photos") as? [NSDictionary] {
+            let imageUrlString = photos[0].value(forKeyPath: "original_size.url") as? String
+            if let imageUrl = URL(string: imageUrlString!) {
+                cell.photoImageView.setImageWith(imageUrl)
+            }
+        }
         
         return cell
         
