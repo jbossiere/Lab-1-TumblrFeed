@@ -42,7 +42,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 **TumblrFeed** is a Tumblr Client using the [Tumblr API](https://www.tumblr.com/docs/en/api/v2).
 
-Time spent: **1.5** hours spent in total
+Time spent: **2.5** hours spent in total
 
 ## User Stories
 
