@@ -18,10 +18,16 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl :)), for: UIControlEvents.valueChanged)
+        
+        TumblrTableView.insertSubview(refreshControl, at: 0)
+        
         TumblrTableView.delegate = self
         TumblrTableView.dataSource = self
         TumblrTableView.rowHeight = 240
         
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
         let request = URLRequest(url: url!)
         let session = URLSession(
@@ -29,7 +35,6 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
             delegate: nil,
             delegateQueue: OperationQueue.main
         )
-        MBProgressHUD.showAdded(to: self.view, animated: true)
         
         let task : URLSessionDataTask = session.dataTask(
             with: request as URLRequest,
@@ -44,13 +49,42 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                         
                         self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
                         self.TumblrTableView.reloadData()
-
+                        
                     }
                 }
         });
         task.resume()
 
         // Do any additional setup after loading the view.
+    }
+    
+    func refreshControlAction(refreshControl: UIRefreshControl) {
+        let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
+        let request = URLRequest(url: url!)
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate: nil,
+            delegateQueue: OperationQueue.main
+        )
+        
+        let task : URLSessionDataTask = session.dataTask(
+            with: request as URLRequest,
+            completionHandler: { (data, response, error) in
+                if let data = data {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options: []) as? NSDictionary {
+                        print("responseDictionary: \(responseDictionary)")
+                        
+                        let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
+                        
+                        self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
+                        self.TumblrTableView.reloadData()
+                        
+                    }
+                }
+                refreshControl.endRefreshing()
+        });
+        task.resume()
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,14 +110,20 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let photoDetails = segue.destination as! PhotoDetailsViewController
+        var indexPath = TumblrTableView.indexPath(for: sender as! UITableViewCell)
+        let post = posts[indexPath!.row]
+        
+        photoDetails.post = post
+        
     }
-    */
+    
 
 }
