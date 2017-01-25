@@ -50,6 +50,7 @@ The following **required** functionality is complete:
 
 - [X] User can view a more details page (currently only contains the photo)
 - [X] User can pull to refresh the table view
+- [X] Infinite scrolling
 
 The following **optional** features are implemented:
 
@@ -57,7 +58,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/5bK1hUS.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/fYuZyRK.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

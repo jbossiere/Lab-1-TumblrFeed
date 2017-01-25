@@ -10,9 +10,11 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
 
     var posts: [NSDictionary] = []
+    var isMoreDataLoading = false
+    var loadingMoreView: InfiniteScrollActivityView?
     
     @IBOutlet weak var TumblrTableView: UITableView!
     override func viewDidLoad() {
@@ -28,37 +30,27 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         TumblrTableView.rowHeight = 240
         
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
-        let request = URLRequest(url: url!)
-        let session = URLSession(
-            configuration: URLSessionConfiguration.default,
-            delegate: nil,
-            delegateQueue: OperationQueue.main
-        )
+        loadContent()
+        MBProgressHUD.hide(for: self.view, animated: true)
         
-        let task : URLSessionDataTask = session.dataTask(
-            with: request as URLRequest,
-            completionHandler: { (data, response, error) in
-                MBProgressHUD.hide(for: self.view, animated: true)
-                if let data = data {
-                    if let responseDictionary = try! JSONSerialization.jsonObject(
-                        with: data, options: []) as? NSDictionary {
-                        print("responseDictionary: \(responseDictionary)")
-                        
-                        let responseFieldDictionary = responseDictionary["response"] as! NSDictionary
-                        
-                        self.posts = responseFieldDictionary["posts"] as! [NSDictionary]
-                        self.TumblrTableView.reloadData()
-                        
-                    }
-                }
-        });
-        task.resume()
+        let frame = CGRect(x: 0, y: TumblrTableView.contentSize.height, width: TumblrTableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        TumblrTableView.addSubview(loadingMoreView!)
+        
+        var insets = TumblrTableView.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        TumblrTableView.contentInset = insets
 
         // Do any additional setup after loading the view.
     }
     
     func refreshControlAction(refreshControl: UIRefreshControl) {
+        loadContent()
+        refreshControl.endRefreshing()
+    }
+    
+    func loadContent() {
         let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV")
         let request = URLRequest(url: url!)
         let session = URLSession(
@@ -82,7 +74,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                         
                     }
                 }
-                refreshControl.endRefreshing()
+//                refreshControl.endRefreshing()
         });
         task.resume()
     }
@@ -102,6 +94,54 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         return cell
         
+    }
+    
+    func loadMoreData() {
+        let url = URL(string: "https://api.tumblr.com/v2/blog/humansofnewyork.tumblr.com/posts/photo?api_key=Q6vHoaVm5L1u2ZAW1fqv3Jw48gFzYVg9P0vH0VHl3GVy6quoGV&offset=\(self.posts.count)")
+        let request = URLRequest(url: url!)
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate: nil,
+            delegateQueue: OperationQueue.main
+        )
+        
+        let task : URLSessionDataTask = session.dataTask(
+            with: request as URLRequest,
+            completionHandler: { (data, response, error) in
+                self.isMoreDataLoading = false
+                self.loadingMoreView!.stopAnimating()
+                if let data = data {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options: []) as? NSDictionary {
+                        print("responseDictionary: \(responseDictionary)")
+                        
+                        let responseFieldDictionary = responseDictionary["response"] as? NSDictionary
+                        
+                        self.posts += responseFieldDictionary?["posts"] as! [NSDictionary]
+                        self.TumblrTableView.reloadData()
+                        
+                    }
+                }
+        });
+        task.resume()
+
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            let scrollViewContentHeight = TumblrTableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - TumblrTableView.bounds.size.height
+            
+            if (scrollView.contentOffset.y > scrollOffsetThreshold && TumblrTableView.isDragging) {
+                isMoreDataLoading = true
+                
+                let frame = CGRect(x: 0, y: TumblrTableView.contentSize.height, width: TumblrTableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                loadMoreData()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

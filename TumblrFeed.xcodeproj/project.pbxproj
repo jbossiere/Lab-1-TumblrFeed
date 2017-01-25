@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D74C9761E395C1000CFB7B2 /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D74C9751E395C1000CFB7B2 /* InfiniteScrollActivityView.swift */; };
 		2DD519C21E3806640066288F /* PhotoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD519C11E3806640066288F /* PhotoDetailsViewController.swift */; };
 		4A48F23465F9617AB26BFBD4 /* Pods_TumblrFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9A176BD425D960B5EE8BC1E /* Pods_TumblrFeed.framework */; };
 		E26DF1B81E303FFC0055FFCC /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26DF1B71E303FFC0055FFCC /* PhotoCell.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D74C9751E395C1000CFB7B2 /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
 		2DD519C11E3806640066288F /* PhotoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewController.swift; sourceTree = "<group>"; };
 		7620FA09CC8AEC554EB59F23 /* Pods-TumblrFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TumblrFeed.release.xcconfig"; path = "Pods/Target Support Files/Pods-TumblrFeed/Pods-TumblrFeed.release.xcconfig"; sourceTree = "<group>"; };
 		B9A176BD425D960B5EE8BC1E /* Pods_TumblrFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TumblrFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +92,7 @@
 				E2C53B691E3018FE00383411 /* LaunchScreen.storyboard */,
 				E2C53B6C1E3018FE00383411 /* Info.plist */,
 				E26DF1B71E303FFC0055FFCC /* PhotoCell.swift */,
+				2D74C9751E395C1000CFB7B2 /* InfiniteScrollActivityView.swift */,
 			);
 			path = TumblrFeed;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D74C9761E395C1000CFB7B2 /* InfiniteScrollActivityView.swift in Sources */,
 				2DD519C21E3806640066288F /* PhotoDetailsViewController.swift in Sources */,
 				E2C53B611E3018FE00383411 /* AppDelegate.swift in Sources */,
 				E26DF1B81E303FFC0055FFCC /* PhotoCell.swift in Sources */,
